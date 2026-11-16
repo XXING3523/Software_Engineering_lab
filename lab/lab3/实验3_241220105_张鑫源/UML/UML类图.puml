@@ -1,0 +1,79 @@
+@startuml
+skinparam classAttributeIconSize 0
+class User {
+  +id: Long
+  +name: String
+  +roles: Set<Role>
+  +register()
+  +login()
+  +hasRole()
+}
+class Activity {
+  +id: Long
+  +title: String
+  +status: ActivityStatus
+  +submitReview()
+  +publish()
+}
+class Session {
+  +id: Long
+  +startAt: DateTime
+  +endAt: DateTime
+  +capacity: int
+  +status: SessionStatus
+}
+class TicketType {
+  +id: Long
+  +name: String
+  +price: Decimal
+  +capacity: int
+  +status: TicketStatus
+}
+class Registration {
+  +id: Long
+  +status: RegistrationStatus
+  +requestId: String
+  +ticketCode: String
+  +activitySnapshot: Snapshot
+  +sessionSnapshot: Snapshot
+  +ticketSnapshot: Snapshot
+  +create()
+  +cancel()
+  +promote()
+}
+class CheckIn {
+  +id: Long
+  +checkedAt: DateTime
+  +method: String
+  +verify()
+}
+class AuditLog {
+  +id: Long
+  +action: String
+  +beforeState: String
+  +afterState: String
+  +record()
+}
+class Notification {
+  +id: Long
+  +title: String
+  +content: String
+  +sentAt: DateTime
+  +readAt: DateTime
+  +status: NotificationStatus
+  +markRead()
+  +retry()
+}
+User "1" -- "0..*" Activity : organizes
+Activity "1" *-- "1..*" Session
+Session "1" *-- "1..*" TicketType
+User "1" -- "0..*" Registration : participates
+Registration "*" --> "1" Activity
+Registration "*" --> "1" Session
+Registration "*" --> "1" TicketType
+Registration "1" -- "0..1" CheckIn
+User "1" -- "0..*" AuditLog : operates
+User "1" -- "0..*" Notification : receives
+Notification "*" --> "0..1" Activity
+Notification "*" --> "0..1" Registration
+@enduml

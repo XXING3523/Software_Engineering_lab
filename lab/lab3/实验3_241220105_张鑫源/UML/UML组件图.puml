@@ -1,0 +1,36 @@
+@startuml
+actor Participant
+actor Organizer
+actor Checker
+actor Admin
+component "Web / Mobile UI" as UI
+component "Authentication & RBAC" as Auth
+component "Activity Management" as Activity
+component "Registration & Waitlist" as Reg
+component "Check-in Service" as Check
+component "Notification Service" as Notice
+component "Audit & Statistics" as Audit
+component "Scheduler & Backup" as Scheduler
+database "Relational Database" as DB
+Participant --> UI
+Organizer --> UI
+Checker --> UI
+Admin --> UI
+UI --> Auth
+UI --> Activity
+UI --> Reg
+UI --> Check
+UI --> Audit
+UI --> Notice
+Activity --> DB
+Reg --> DB
+Reg --> Notice
+Check --> DB
+Audit --> DB
+Auth --> DB
+Notice --> DB
+Scheduler --> DB
+Scheduler --> Activity : 状态更新
+Scheduler --> Reg : 候补与缺席处理
+Scheduler --> Check : 时间窗口检查
+@enduml

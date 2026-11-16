@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "campus-ticketing"
+version = "0.1.0"
+description = "校园活动票务与报名系统"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+campus-ticketing = "campus_ticketing.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pylint.main]
+py-version = "3.12"
+ignore = [".venv", "build", "dist"]
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "too-many-instance-attributes",
+    "too-many-arguments",
+    "too-many-positional-arguments",
+    "too-few-public-methods",
+    "duplicate-code",
+    "consider-using-with",
+]

@@ -1,0 +1,23 @@
+@startuml
+actor 参与者
+participant "报名页面" as UI
+participant "报名服务" as S
+database "数据库" as DB
+participant "通知服务" as N
+参与者 -> UI: 提交报名(requestId)
+UI -> S: 创建报名
+S -> DB: 事务锁定票种名额
+alt 名额可用
+  DB --> S: 扣减成功
+  S -> DB: 保存报名快照
+  S -> N: 发送报名成功通知
+  S --> UI: 返回报名编号和票码
+else 名额已满
+  DB --> S: 扣减失败
+  S -> DB: 检查候补配置
+  S --> UI: 返回候补或失败结果
+end
+参与者 -> UI: 重复提交同一 requestId
+UI -> S: 查询幂等结果
+S --> UI: 返回第一次请求结果
+@enduml

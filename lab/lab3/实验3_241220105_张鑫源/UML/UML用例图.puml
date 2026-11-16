@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+actor 参与者 as P
+actor 组织者 as O
+actor 检票人员 as C
+actor 管理员 as A
+rectangle "校园活动票务与报名系统" {
+usecase "查询活动" as U1
+usecase "报名活动" as U2
+usecase "取消报名" as U3
+usecase "加入候补" as U4
+usecase "查看报名与票码" as U5
+usecase "创建和编辑活动" as U6
+usecase "提交审核" as U7
+usecase "管理报名名单与导出" as U8
+usecase "场次签到" as U9
+usecase "接收站内通知" as U10
+usecase "审核活动" as U11
+usecase "处理举报" as U12
+usecase "查看统计与日志" as U13
+}
+P --> U1
+P --> U2
+P --> U3
+P --> U4
+P --> U5
+P --> U10
+O --> U6
+O --> U7
+O --> U8
+C --> U9
+A --> U11
+A --> U12
+A --> U13
+U4 .> U2 : <<extend>>
+U7 .> U6 : <<include>>
+@enduml
