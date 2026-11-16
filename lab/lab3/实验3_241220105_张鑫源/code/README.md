@@ -32,6 +32,8 @@ python -m unittest discover -s tests -v
 python -m build
 ```
 
+Windows 桌面检查可以直接双击 `run_gui.pyw` 启动。
+
 ## 默认演示账号
 
 程序提供参与者、组织者、检票人员和管理员四类演示身份。正式使用时应在用户管理模块中替换演示数据。

@@ -26,5 +26,18 @@ if (Test-Path -LiteralPath $zipPath) {
     throw "压缩包已存在，为避免覆盖请先手动处理：$zipPath"
 }
 
-Compress-Archive -Path $packagePath -DestinationPath $zipPath -CompressionLevel Optimal
-Write-Output "已生成：$zipPath"
+$stagingRoot = Join-Path $PSScriptRoot ".submission-staging"
+$stagingPackage = Join-Path $stagingRoot $folderName
+try {
+    New-Item -ItemType Directory -Force -Path $stagingPackage | Out-Null
+    Copy-Item -LiteralPath (Join-Path $packagePath "实验报告.pdf") -Destination $stagingPackage
+    Copy-Item -LiteralPath (Join-Path $packagePath "UML") -Destination $stagingPackage -Recurse
+    Copy-Item -LiteralPath (Join-Path $packagePath "code") -Destination $stagingPackage -Recurse
+    Compress-Archive -Path $stagingPackage -DestinationPath $zipPath -CompressionLevel Optimal
+    Write-Output "已生成：$zipPath"
+}
+finally {
+    if (Test-Path -LiteralPath $stagingRoot) {
+        Remove-Item -LiteralPath $stagingRoot -Recurse -Force
+    }
+}

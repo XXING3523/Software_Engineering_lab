@@ -27,6 +27,7 @@ class MainWindow:
         self.activity_description = tk.StringVar()
         self.ticket_code_var = tk.StringVar()
         self.admin_text: tk.Text | None = None
+        self.notebook: ttk.Notebook | None = None
         self.activity_tree: ttk.Treeview | None = None
         self.registration_tree: ttk.Treeview | None = None
         self.status_var = tk.StringVar(value="系统已启动")
@@ -62,18 +63,18 @@ class MainWindow:
             side=tk.RIGHT, padx=4
         )
 
-        notebook = ttk.Notebook(self.root)
-        notebook.pack(fill=tk.BOTH, expand=True, padx=12, pady=(0, 8))
-        self.browse_tab = ttk.Frame(notebook, padding=10)
-        self.registration_tab = ttk.Frame(notebook, padding=10)
-        self.management_tab = ttk.Frame(notebook, padding=10)
-        self.checkin_tab = ttk.Frame(notebook, padding=10)
-        self.admin_tab = ttk.Frame(notebook, padding=10)
-        notebook.add(self.browse_tab, text="活动广场")
-        notebook.add(self.registration_tab, text="我的报名")
-        notebook.add(self.management_tab, text="活动管理")
-        notebook.add(self.checkin_tab, text="扫码签到")
-        notebook.add(self.admin_tab, text="管理员中心")
+        self.notebook = ttk.Notebook(self.root)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=12, pady=(0, 8))
+        self.browse_tab = ttk.Frame(self.notebook, padding=10)
+        self.registration_tab = ttk.Frame(self.notebook, padding=10)
+        self.management_tab = ttk.Frame(self.notebook, padding=10)
+        self.checkin_tab = ttk.Frame(self.notebook, padding=10)
+        self.admin_tab = ttk.Frame(self.notebook, padding=10)
+        self.notebook.add(self.browse_tab, text="活动广场")
+        self.notebook.add(self.registration_tab, text="我的报名")
+        self.notebook.add(self.management_tab, text="活动管理")
+        self.notebook.add(self.checkin_tab, text="扫码签到")
+        self.notebook.add(self.admin_tab, text="管理员中心")
         self._build_browse_tab()
         self._build_registration_tab()
         self._build_management_tab()

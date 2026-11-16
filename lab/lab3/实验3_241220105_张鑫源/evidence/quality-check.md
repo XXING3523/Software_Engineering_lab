@@ -10,7 +10,7 @@
 
 ## 自动化检查
 
-- `python -W error -m unittest discover -s tests -v`：16 个测试全部通过。
+- `python -W error -m unittest discover -s tests -v`：17 个测试全部通过，包含 Tkinter 界面冒烟测试。
 - `python -W error -m compileall -q src tests`：通过。
 - `python -m pylint src tests --reports=no --score=yes -j 1`：10.00/10，退出码 0。
 - `python -m build --no-isolation`：成功生成源码包和 wheel。
